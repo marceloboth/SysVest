@@ -101,6 +101,106 @@ namespace SysVest.Test.Repositories
             _adminRepository.Inserir(contraProva);
         }
 
+        [TestMethod]
+        public void PodeAlterarTest()
+        {
+            // Ambiente
+            var emailEsperado = _entidade.Email;
+            var loginEsperado = _entidade.Login;
+            var nomeEsperado = _entidade.NomeTratamento;
+            var senhaEsperada = _entidade.Senha;
+
+            _adminRepository.Inserir(_entidade);
+
+            var adminAlterar = (from a in _adminRepository.Admins
+                                where a.Id == _entidade.Id
+                                select a).FirstOrDefault();
+
+            adminAlterar.Login = "both";
+            adminAlterar.Email = "both@gmail.com";
+            adminAlterar.NomeTratamento = "Marcelo Both";
+            adminAlterar.Senha = "1234";
+
+            _adminRepository.Alterar(adminAlterar);
+
+            // Ação
+            var retorno = (from a in _adminRepository.Admins
+                           where a.Id.Equals(_entidade.Id)
+                           select a).FirstOrDefault();
+
+            // Assertivas
+            Assert.AreEqual(retorno.Id, _entidade.Id);
+            Assert.AreNotEqual(loginEsperado, retorno.Login);
+            Assert.AreNotEqual(emailEsperado, retorno.Email);
+            Assert.AreNotEqual(nomeEsperado, retorno.NomeTratamento);
+            Assert.AreNotEqual(senhaEsperada, retorno.Senha);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void NaoPodeAlterarAdminComMesmoEmailCadastradoTest()
+        {
+            // Ambiente
+            _adminRepository.Inserir(_entidade);
+
+            // Usuário que o admin será comparado
+            var adminContraProva = new Admin
+            {
+                Email = "both@gmail.com",
+                Login = "both",
+                NomeTratamento = "Marcelo Both",
+                Senha = "1234"
+            };
+
+            _adminRepository.Inserir(adminContraProva);
+
+            var adminAlterar = (
+                from a in _adminRepository.Admins
+                where a.Id == _entidade.Id
+                select a
+            ).FirstOrDefault();
+
+            adminAlterar.Login = "both";
+            adminAlterar.Email = adminContraProva.Email;
+            adminAlterar.NomeTratamento = "Marcelo Both";
+            adminAlterar.Senha = "1234";
+
+            _adminRepository.Alterar(adminAlterar);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void NaoPodeAlterarAdminComMesmoLoginCadastradoTest()
+        {
+            // Ambiente
+            _adminRepository.Inserir(_entidade);
+
+            // Usuário que o admin será comparado
+            var adminContraProva = new Admin
+            {
+                Email = "both@gmail.com",
+                Login = "both",
+                NomeTratamento = "Marcelo Both",
+                Senha = "1234"
+            };
+
+            _adminRepository.Inserir(adminContraProva);
+
+            var adminAlterar = (
+                from a in _adminRepository.Admins
+                where a.Id == _entidade.Id
+                select a
+            ).FirstOrDefault();
+
+            adminAlterar.Login = "both";
+            adminAlterar.Email = adminContraProva.Email;
+            adminAlterar.NomeTratamento = "Marcelo Both";
+            adminAlterar.Senha = "1234";
+
+            _adminRepository.Alterar(adminAlterar);
+        }
 
         [TestCleanup]
         public void LimparCenario()

@@ -24,7 +24,7 @@ namespace SysVest.DomainModel.Concrets
 
         public void Alterar(Admin admin)
         {
-            throw new NotImplementedException();
+            _vestContext.SaveChanges();
         }
 
         public void Excluir(int id)
