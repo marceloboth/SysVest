@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysVest.DomainModel", "SysVest.DomainModel\SysVest.DomainModel.csproj", "{2D4FFD75-0C85-45BD-8DAC-AD61884FA3C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysVest.Test", "SysVest.Test\SysVest.Test.csproj", "{7C826B82-A2B5-48AC-BB3C-4D2512840A3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysVest.WebUI", "SysVest.WebUI\SysVest.WebUI.csproj", "{5A1400F9-F60D-4671-8AA4-9B4F97C5129F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D4FFD75-0C85-45BD-8DAC-AD61884FA3C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4FFD75-0C85-45BD-8DAC-AD61884FA3C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4FFD75-0C85-45BD-8DAC-AD61884FA3C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4FFD75-0C85-45BD-8DAC-AD61884FA3C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1400F9-F60D-4671-8AA4-9B4F97C5129F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1400F9-F60D-4671-8AA4-9B4F97C5129F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1400F9-F60D-4671-8AA4-9B4F97C5129F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1400F9-F60D-4671-8AA4-9B4F97C5129F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C826B82-A2B5-48AC-BB3C-4D2512840A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C826B82-A2B5-48AC-BB3C-4D2512840A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C826B82-A2B5-48AC-BB3C-4D2512840A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C826B82-A2B5-48AC-BB3C-4D2512840A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
