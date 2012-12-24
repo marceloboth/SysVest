@@ -24,12 +24,28 @@ namespace SysVest.DomainModel.Concrets
 
         public void Alterar(Admin admin)
         {
+            var validacao = from a in Admins
+                            where (a.Login.ToUpper().Equals(admin.Login) || a.Email.ToUpper().Equals(admin.Email))
+                            && (!a.Id.Equals(admin.Id))
+                            select a;
+            if (validacao.Any())
+            {
+                throw new InvalidOperationException("Administrador já cadastrado com esse login");
+            }
+
             _vestContext.SaveChanges();
         }
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            var validacao = from a in Admins
+                            where a.Id.Equals(id)
+                            select a;
+            if (!validacao.Any())
+                throw new InvalidOperationException("Administrador não encontrado no repositório");
+            
+            _vestContext.Admins.Remove(validacao.FirstOrDefault());
+            _vestContext.SaveChanges();
         }
 
         public void Inserir(Admin admin)
@@ -47,7 +63,7 @@ namespace SysVest.DomainModel.Concrets
 
         public Admin Retornar(int id)
         {
-            throw new NotImplementedException();
+            return Admins.FirstOrDefault(a => a.Id.Equals(id));
         }
     }
 }

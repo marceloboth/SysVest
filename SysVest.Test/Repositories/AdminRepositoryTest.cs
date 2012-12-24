@@ -116,10 +116,10 @@ namespace SysVest.Test.Repositories
                                 where a.Id == _entidade.Id
                                 select a).FirstOrDefault();
 
-            adminAlterar.Login = "both";
-            adminAlterar.Email = "both@gmail.com";
-            adminAlterar.NomeTratamento = "Marcelo Both";
-            adminAlterar.Senha = "1234";
+            adminAlterar.NomeTratamento = "Marcelos J. Both";
+            adminAlterar.Email = "marcelos.both@gmail.com";
+            adminAlterar.Login = "marcelos.both";
+            adminAlterar.Senha = "123456s";
 
             _adminRepository.Alterar(adminAlterar);
 
@@ -147,10 +147,10 @@ namespace SysVest.Test.Repositories
             // Usuário que o admin será comparado
             var adminContraProva = new Admin
             {
-                Email = "both@gmail.com",
-                Login = "both",
-                NomeTratamento = "Marcelo Both",
-                Senha = "1234"
+                NomeTratamento = "Marcelo J. Both",
+                Email = "marcelo.both@gmail.com",
+                Login = "marcelo.both",
+                Senha = "123456"
             };
 
             _adminRepository.Inserir(adminContraProva);
@@ -161,10 +161,10 @@ namespace SysVest.Test.Repositories
                 select a
             ).FirstOrDefault();
 
-            adminAlterar.Login = "both";
+            adminAlterar.Login = "marcelo.both";
             adminAlterar.Email = adminContraProva.Email;
-            adminAlterar.NomeTratamento = "Marcelo Both";
-            adminAlterar.Senha = "1234";
+            adminAlterar.NomeTratamento = "Marcelo J. Both";
+            adminAlterar.Senha = "123456";
 
             _adminRepository.Alterar(adminAlterar);
         }
@@ -201,6 +201,47 @@ namespace SysVest.Test.Repositories
 
             _adminRepository.Alterar(adminAlterar);
         }
+
+
+        [TestMethod]
+        public void PodeExcluirTest()
+        {
+            // Ambiente
+            _adminRepository.Inserir(_entidade);
+            
+            // Ação
+            _adminRepository.Excluir(_entidade.Id);
+
+            // Assert
+            var result = from a in _vestContext.Admins
+                         where a.Id.Equals(_entidade.Id)
+                         select a;
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void NaoPodeExcluirAlgoQueNaoExistaTest()
+        {
+            _adminRepository.Excluir(231);
+        }
+
+
+        [TestMethod]
+        public void PodeRecuperarPorIdTest()
+        {
+            // Ambiente
+            _adminRepository.Inserir(_entidade);
+            
+            // Ação
+            var result = _adminRepository.Retornar(_entidade.Id);
+
+            // Assertivas
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(Admin));
+            Assert.AreEqual(_entidade, result);
+        }
+
 
         [TestCleanup]
         public void LimparCenario()
