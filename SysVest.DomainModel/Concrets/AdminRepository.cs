@@ -7,18 +7,18 @@ namespace SysVest.DomainModel.Concrets
 {
     public class AdminRepository : IAdminRepository
     {
-        private readonly VestContext _vestContext;
+        private readonly VestContext _context;
 
         public AdminRepository(VestContext context)
         {
-            _vestContext = context;
+            _context = context;
         }
 
         public IQueryable<Admin> Admins
         {
             get 
             { 
-                return _vestContext.Admins.AsQueryable();
+                return _context.Admins.AsQueryable();
             }
         }
 
@@ -33,7 +33,7 @@ namespace SysVest.DomainModel.Concrets
                 throw new InvalidOperationException("Administrador já cadastrado com esse login");
             }
 
-            _vestContext.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Excluir(int id)
@@ -44,8 +44,8 @@ namespace SysVest.DomainModel.Concrets
             if (!validacao.Any())
                 throw new InvalidOperationException("Administrador não encontrado no repositório");
             
-            _vestContext.Admins.Remove(validacao.FirstOrDefault());
-            _vestContext.SaveChanges();
+            _context.Admins.Remove(validacao.FirstOrDefault());
+            _context.SaveChanges();
         }
 
         public void Inserir(Admin admin)
@@ -57,8 +57,8 @@ namespace SysVest.DomainModel.Concrets
             if (validacao.Any())
                 throw new InvalidOperationException("Login ou e-mail informado já estão vinculados a algum cadastro");
 
-            _vestContext.Admins.Add(admin);
-            _vestContext.SaveChanges();
+            _context.Admins.Add(admin);
+            _context.SaveChanges();
         }
 
         public Admin Retornar(int id)
