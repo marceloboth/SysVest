@@ -29,7 +29,7 @@ namespace SysVest.Test.Repositories
         }
 
         [TestMethod]
-        public void PodeConsultarLinqUsandoRepositorioTest()
+        public void Pode_consultar_Linq_usando_repositorio_Test()
         {
             // Ambiente
             _context.Cursos.Add(_entidade);
@@ -48,7 +48,7 @@ namespace SysVest.Test.Repositories
 
 
         [TestMethod]
-        public void PodeInserirTest()
+        public void Pode_inserir_Test()
         {
             // Ação
             _repository.Inserir(_entidade);
@@ -63,7 +63,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void NaoPodeInserirCursoComMesmaDescricaoTest()
+        public void Nao_pode_inserir_curso_com_mesma_descricao_Test()
         {
             // Ambiente
             var contraProva = new Curso
@@ -78,7 +78,7 @@ namespace SysVest.Test.Repositories
         }
 
         [TestMethod]
-        public void PodeAlterarTest()
+        public void Pode_alterar_Test()
         {
             // Ambiente
             var descricaoEsperada = _entidade.Descricao;
