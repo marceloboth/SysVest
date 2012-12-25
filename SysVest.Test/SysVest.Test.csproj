@@ -57,6 +57,7 @@
     <Compile Include="Entities\VestibularTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepositoryTest.cs" />
+    <Compile Include="Repositories\CursoRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SysVest.DomainModel\SysVest.DomainModel.csproj">
