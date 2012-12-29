@@ -49,6 +49,7 @@
     <Compile Include="Abstracts\ICursoRepository.cs" />
     <Compile Include="Abstracts\IVestibularRepository.cs" />
     <Compile Include="Concrets\AdminRepository.cs" />
+    <Compile Include="Concrets\VestibularRepository.cs" />
     <Compile Include="Concrets\CursoRepository.cs" />
     <Compile Include="Concrets\VestContext.cs" />
     <Compile Include="Entities\Admin.cs" />

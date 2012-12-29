@@ -30,7 +30,7 @@ namespace SysVest.Test.Repositories
         }
 
         [TestMethod]
-        public void Pode_consultar_Linq_usando_repositorio_Test()
+        public void Pode_Consultar_Linq_Usando_Repositorio_Test()
         {
             // Ambiente
             _context.Cursos.Add(_entidade);
@@ -49,7 +49,7 @@ namespace SysVest.Test.Repositories
 
 
         [TestMethod]
-        public void Pode_inserir_Test()
+        public void Pode_Inserir_Test()
         {
             // Ação
             _repository.Inserir(_entidade);
@@ -64,7 +64,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_inserir_curso_com_mesma_descricao_Test()
+        public void Nao_Pode_Inserir_Curso_Com_Mesma_Descricao_Test()
         {
             // Ambiente
             var contraProva = new Curso
@@ -79,7 +79,7 @@ namespace SysVest.Test.Repositories
         }
 
         [TestMethod]
-        public void Pode_alterar_Test()
+        public void Pode_Alterar_Test()
         {
             // Ambiente
             var descricaoEsperada = _entidade.Descricao;
@@ -108,7 +108,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_alterar_curso_com_mesma_descricao_cadastrada_Test()
+        public void Nao_Pode_Alterar_Curso_Com_Mesma_Descricao_Cadastrada_Test()
         {
             // Ambiente
             _repository.Inserir(_entidade);
@@ -133,7 +133,7 @@ namespace SysVest.Test.Repositories
 
 
         [TestMethod]
-        public void Pode_excluir_Test()
+        public void Pode_Excluir_Test()
         {
             // Ambiente
             _repository.Inserir(_entidade);
@@ -150,14 +150,14 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_excluir_algo_que_nao_exista_Test()
+        public void Nao_Pode_Excluir_Algo_Que_Nao_Exista_Test()
         {
             _repository.Excluir(231);
         }
 
 
         [TestMethod]
-        public void Pode_recuperar_por_id_Test()
+        public void Pode_Recuperar_Por_Id_Test()
         {
             // Ambiente
             _repository.Inserir(_entidade);

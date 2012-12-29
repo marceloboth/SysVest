@@ -30,7 +30,7 @@ namespace SysVest.Test.Repositories
         }
 
         [TestMethod]
-        public void Pode_consultar_Linq_usando_repositorio_Test()
+        public void Pode_Consultar_Linq_Usando_Repositorio_Test()
         {
             // Ambiente
             _vestContext.Admins.Add(_entidade);
@@ -49,7 +49,7 @@ namespace SysVest.Test.Repositories
 
 
         [TestMethod]
-        public void Pode_inserir_Test()
+        public void Pode_Inserir_Test()
         {
             // Ação
             _adminRepository.Inserir(_entidade);
@@ -64,7 +64,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_inserir_admin_com_mesmo_email_Test()
+        public void Nao_Pode_Inserir_Admin_Com_Mesmo_Email_Test()
         {
             // Ambiente
             var contraProva = new Admin
@@ -84,7 +84,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_inserir_admin_com_mesmo_login_Test()
+        public void Nao_Pode_Inserir_Admin_Com_Mesmo_Login_Test()
         {
             // Ambiente
             var contraProva = new Admin
@@ -102,7 +102,7 @@ namespace SysVest.Test.Repositories
         }
 
         [TestMethod]
-        public void Pode_alterar_Test()
+        public void Pode_Alterar_Test()
         {
             // Ambiente
             var emailEsperado = _entidade.Email;
@@ -139,7 +139,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_alterar_admin_com_mesmo_email_cadastrado_Test()
+        public void Nao_Pode_Alterar_Admin_Com_Mesmo_Email_Cadastrado_Test()
         {
             // Ambiente
             _adminRepository.Inserir(_entidade);
@@ -172,7 +172,7 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_alterar_admin_com_mesmo_login_cadastrado_Test()
+        public void Nao_Pode_Alterar_Admin_Com_Mesmo_Login_Cadastrado_Test()
         {
             // Ambiente
             _adminRepository.Inserir(_entidade);
@@ -204,7 +204,7 @@ namespace SysVest.Test.Repositories
 
 
         [TestMethod]
-        public void Pode_excluir_Test()
+        public void Pode_Excluir_Test()
         {
             // Ambiente
             _adminRepository.Inserir(_entidade);
@@ -221,14 +221,14 @@ namespace SysVest.Test.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void Nao_pode_excluir_algo_que_nao_exista_Test()
+        public void Nao_Pode_Excluir_Algo_Que_Nao_Exista_Test()
         {
             _adminRepository.Excluir(231);
         }
 
 
         [TestMethod]
-        public void Pode_recuperar_por_Id_Test()
+        public void Pode_Recuperar_Por_Id_Test()
         {
             // Ambiente
             _adminRepository.Inserir(_entidade);
