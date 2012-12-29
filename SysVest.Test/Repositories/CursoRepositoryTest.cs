@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SysVest.DomainModel.Abstracts;
@@ -105,123 +106,83 @@ namespace SysVest.Test.Repositories
         }
 
 
-        //[TestMethod]
-        //[ExpectedException(typeof(InvalidOperationException))]
-        //public void NaoPodeAlterarAdminComMesmoEmailCadastradoTest()
-        //{
-        //    // Ambiente
-        //    _repository.Inserir(_entidade);
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Nao_pode_alterar_curso_com_mesma_descricao_cadastrada_Test()
+        {
+            // Ambiente
+            _repository.Inserir(_entidade);
 
-        //    // Usuário que o admin será comparado
-        //    var adminContraProva = new Admin
-        //    {
-        //        NomeTratamento = "Marcelo J. Both",
-        //        Email = "marcelo.both@gmail.com",
-        //        Login = "marcelo.both",
-        //        Senha = "123456"
-        //    };
+            // Usuário que o admin será comparado
+            var cursoFake = new Curso()
+            {
+                Descricao = "Ruby on Rails 3"
+            };
 
-        //    _repository.Inserir(adminContraProva);
+            _repository.Inserir(cursoFake);
 
-        //    var adminAlterar = (
-        //        from a in _repository.Admins
-        //        where a.Id == _entidade.Id
-        //        select a
-        //    ).FirstOrDefault();
-
-        //    adminAlterar.Login = "marcelo.both";
-        //    adminAlterar.Email = adminContraProva.Email;
-        //    adminAlterar.NomeTratamento = "Marcelo J. Both";
-        //    adminAlterar.Senha = "123456";
-
-        //    _repository.Alterar(adminAlterar);
-        //}
+            var cursoAlterar = (
+                from c in _repository.Cursos
+                where c.Id == _entidade.Id
+                select c
+            ).FirstOrDefault();
+            
+            cursoAlterar.Descricao = cursoFake.Descricao;
+            _repository.Alterar(cursoAlterar);
+        }
 
 
-        //[TestMethod]
-        //[ExpectedException(typeof(InvalidOperationException))]
-        //public void NaoPodeAlterarAdminComMesmoLoginCadastradoTest()
-        //{
-        //    // Ambiente
-        //    _repository.Inserir(_entidade);
+        [TestMethod]
+        public void Pode_excluir_Test()
+        {
+            // Ambiente
+            _repository.Inserir(_entidade);
 
-        //    // Usuário que o admin será comparado
-        //    var adminContraProva = new Admin
-        //    {
-        //        Email = "both@gmail.com",
-        //        Login = "both",
-        //        NomeTratamento = "Marcelo Both",
-        //        Senha = "1234"
-        //    };
+            // Ação
+            _repository.Excluir(_entidade.Id);
 
-        //    _repository.Inserir(adminContraProva);
+            // Assert
+            var result = from c in _context.Cursos
+                         where c.Id.Equals(_entidade.Id)
+                         select c;
+            Assert.AreEqual(0, result.Count());
+        }
 
-        //    var adminAlterar = (
-        //        from a in _repository.Admins
-        //        where a.Id == _entidade.Id
-        //        select a
-        //    ).FirstOrDefault();
-
-        //    adminAlterar.Login = "both";
-        //    adminAlterar.Email = adminContraProva.Email;
-        //    adminAlterar.NomeTratamento = "Marcelo Both";
-        //    adminAlterar.Senha = "1234";
-
-        //    _repository.Alterar(adminAlterar);
-        //}
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Nao_pode_excluir_algo_que_nao_exista_Test()
+        {
+            _repository.Excluir(231);
+        }
 
 
-        //[TestMethod]
-        //public void PodeExcluirTest()
-        //{
-        //    // Ambiente
-        //    _repository.Inserir(_entidade);
+        [TestMethod]
+        public void Pode_recuperar_por_id_Test()
+        {
+            // Ambiente
+            _repository.Inserir(_entidade);
 
-        //    // Ação
-        //    _repository.Excluir(_entidade.Id);
+            // Ação
+            var result = _repository.RetornarPorId(_entidade.Id);
 
-        //    // Assert
-        //    var result = from a in _context.Admins
-        //                 where a.Id.Equals(_entidade.Id)
-        //                 select a;
-        //    Assert.AreEqual(0, result.Count());
-        //}
-
-        //[TestMethod]
-        //[ExpectedException(typeof(InvalidOperationException))]
-        //public void NaoPodeExcluirAlgoQueNaoExistaTest()
-        //{
-        //    _repository.Excluir(231);
-        //}
+            // Assertivas
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(Curso));
+            Assert.AreEqual(_entidade, result);
+        }
 
 
-        //[TestMethod]
-        //public void PodeRecuperarPorIdTest()
-        //{
-        //    // Ambiente
-        //    _repository.Inserir(_entidade);
+        [TestCleanup]
+        public void LimparCenario()
+        {
+            var exclusao = from c in _context.Cursos
+                           select c;
 
-        //    // Ação
-        //    var result = _repository.Retornar(_entidade.Id);
-
-        //    // Assertivas
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(Admin));
-        //    Assert.AreEqual(_entidade, result);
-        //}
-
-
-        //[TestCleanup]
-        //public void LimparCenario()
-        //{
-        //    var exclusao = from a in _context.Admins
-        //                   select a;
-
-        //    foreach (var admin in exclusao)
-        //    {
-        //        _context.Admins.Remove(admin);
-        //    }
-        //    _context.SaveChanges();
-        //}
+            foreach (var curso in exclusao)
+            {
+                _context.Cursos.Remove(curso);
+            }
+            _context.SaveChanges();
+        }
     }
 }
